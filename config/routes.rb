@@ -6,10 +6,9 @@ Rails.application.routes.draw do
     sessions: 'users/sessions'
   }
 
-# TODO: 一旦、コメントアウトをさせてください
-  # if Rails.env.development?
-  #   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
-  # end
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
+  end
 
   devise_scope :user do
     get "user/:id", :to => "users/registrations#detail"
@@ -31,28 +30,38 @@ Rails.application.routes.draw do
   end
 
   resources :items , only: [:new , :create, :destroy, :update]
-  resources :questfouions, only: %i(new show edit create delete) do
+  resources :questions, only: %i(new show edit create delete) do
     resources :answers, only: %i(show)
   end
 
 
   resources :mypages do
     collection do
-      get :notifications
-      get :app_contractors
-      get :solved_questions
-      get :unsolved_questions
-      get :leaded_questions
-      get :reviews
+      get :notification
+      get :app_contractor
+      get :solved_question
+      get :unsolved_question
+      get :leaded_question
+      get :review
       get :guid
-      get :comments
+      get :comment
       get :contact
-      get :sales
-      get :charges
-      get :profiles
-      get :mail_passwords
-      get :cards
-      get :my_infos
+      get :sale
+      get :sales_history
+      get :transfer_app
+      get :registration_card
+      get :transfer_confirm
+      get :transfer_completed
+      get :sales_term
+      get :charge
+      get :charge_completed
+      get :profile
+      get :mail_password
+      get :card
+      get :card_registration
+      get :card_confirm
+      get :card_completed
+      get :my_info
       get :review2_1_1
       get :review2_2_1
       get :review2_2_2
